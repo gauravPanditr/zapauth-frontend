@@ -1,5 +1,5 @@
 
-import PrimaryBtn from "../buttons/primary-btn";
+import PrimaryBtn from "../buttons/primary-button";
 import SecondaryBtn from "../buttons/secondary-btn";
 import { AUTHWAVE_DOCS_BASE_URL } from "@/constants";
 
