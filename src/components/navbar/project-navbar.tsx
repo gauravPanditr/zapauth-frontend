@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useParams } from "next/navigation";
-import ComingSoonLabel from "../labels/coming-soon";
+import ComingSoonLabel from "../labels/comming-soon";
 
 interface NavItem {
   name: string;
