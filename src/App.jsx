@@ -1,14 +1,11 @@
+import Home from "./pages/home"
+
 
 function App() {
  
 
   return (
-    <>
-     
-    <h1 className="">
-      
-    </h1>
-    </>
+    <Home/>
   )
 }
 
