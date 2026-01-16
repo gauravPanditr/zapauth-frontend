@@ -1,7 +1,9 @@
 
 import { Link } from "react-router-dom"
 
+
 export default function Navbar() {
+const navigator=useNavigate();
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-gray-950 text-white">
       <div className="font-bold text-xl">Zap Auth</div>
