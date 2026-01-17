@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar"
 import ProjectCard from "../components/ProjectCard"
 import CreateProjectCard from "../components/CreateProjectCard"
+import ProjectNavbar from "../components/Project_Navbar"
 
 export default function Projects() {
   // 🔌 API INTEGRATION (leave blank for now)
@@ -14,7 +15,7 @@ export default function Projects() {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-[#05070c] via-[#070b14] to-[#04060a] text-white">
-      <Navbar />
+      <ProjectNavbar/>
 
       <main className="px-12 py-12">
         <h1 className="text-3xl font-semibold mb-10">Personal Projects</h1>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-export default function Navbar() {
+export default function ProjectNavbar() {
   return (
     <nav className="flex items-center justify-between px-10 py-5 border-b border-white/10">
       <div className="flex items-center gap-3">
