@@ -1,4 +1,5 @@
-
+import { useState } from "react"
+import { login } from "../api/admin.api"
 const Login = () => {
       const [form, setForm] = useState({
         email: "",
@@ -10,7 +11,7 @@ const Login = () => {
  const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await signup(form)
+      await login(form)
       alert("Login successful")
       console.log(username);
       
