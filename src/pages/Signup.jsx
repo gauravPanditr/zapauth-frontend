@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { signup } from "../api/admin.api"
 
 export default function Signup() {
@@ -7,7 +8,6 @@ export default function Signup() {
     email: "",
     password: "",
   })
-
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -18,7 +18,6 @@ export default function Signup() {
     try {
       await signup(form)
       alert("Signup successful")
-      console.log(username);
       
     } catch (err) {
       alert(err.response?.data?.message || "Signup failed")
@@ -64,6 +63,17 @@ export default function Signup() {
         >
           Sign Up
         </button>
+
+        {/* Login Link */}
+        <p className="text-gray-400 text-sm mt-4 text-center">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="text-cyan-400 hover:underline"
+          >
+            Login
+          </Link>
+        </p>
       </form>
     </div>
   )

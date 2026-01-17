@@ -8,3 +8,4 @@ export const signup = (data) => {
 export const login=(data)=>{
    return api.post("/admin/login",data);
 }
+
