@@ -7,6 +7,7 @@ import Login from "./pages/Login"
 import ProtectedRoute from "./pages/ProtectedRoute"
 import Projects from "./pages/Projects"
 import CreateProject from "./pages/CreateProject"
+import Account from "./pages/Account"
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       />
       <Route path="/signup" element={<Signup/>} />
       <Route path="/login" element={<Login/>}/>
+
       <Route
           path="/projects"
           element={
@@ -34,6 +36,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+          <Route path="/account" element={<Account/>}/>
           <Route path="/create" element={<CreateProject />} />
     </Routes>
   )
