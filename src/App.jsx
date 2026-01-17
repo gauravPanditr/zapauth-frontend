@@ -4,6 +4,9 @@ import Features from "./components/Feature"
 import { Routes, Route } from "react-router-dom"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
+import ProtectedRoute from "./pages/ProtectedRoute"
+import Projects from "./pages/Projects"
+import CreateProject from "./pages/CreateProject"
 
 
 function App() {
@@ -23,6 +26,15 @@ function App() {
       />
       <Route path="/signup" element={<Signup/>} />
       <Route path="/login" element={<Login/>}/>
+      <Route
+          path="/projects"
+          element={
+            <ProtectedRoute>
+              <Projects />
+            </ProtectedRoute>
+          }
+        />
+          <Route path="/create" element={<CreateProject />} />
     </Routes>
   )
 }

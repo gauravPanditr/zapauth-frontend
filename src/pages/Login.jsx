@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { login } from "../api/admin.api"
+import { useNavigate } from "react-router-dom"
 const Login = () => {
+  const navigate = useNavigate();
       const [form, setForm] = useState({
         email: "",
         password: "",
@@ -8,17 +10,23 @@ const Login = () => {
       const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
- const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-      await login(form)
-      alert("Login successful")
-      console.log(username);
-      
-    } catch (err) {
-      alert(err.response?.data?.message || "Login failed")
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await login(form); // store response
+    localStorage.setItem("accessToken", res.data.accessToken); // save token
+
+    alert("Login successful");
+    navigate("/projects"); // redirect after success
+
+    console.log("Logged in user:", form.email);
+  } catch (err) {
+    alert(
+      err.response?.data?.message || err.response?.data?.error || "Login failed"
+    );
   }
+};
+
   return (
      <div className="min-h-screen bg-gray-950 flex items-center justify-center px-6">
       <form

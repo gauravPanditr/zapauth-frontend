@@ -33,12 +33,14 @@ export default function Projects() {
         </div>
       </main>
 
-      <footer className="flex items-center justify-between px-12 py-6 border-t border-white/10 text-gray-400 text-sm">
-        <span>© 2026 Zap Auth. All Rights Reserved</span>
-        <div className="flex gap-6">
-          <span>Version 1.0.2</span>
-          <span>Docs</span>
-          <span>Developer</span>
+     <footer className="mt-80 px-12 py-6 border-t border-white/10 text-gray-400 text-sm">
+        <div className="flex items-center justify-between">
+          <span>© 2026 Zap Auth. All Rights Reserved</span>
+          <div className="flex gap-6">
+            <span>Version 1.0.2</span>
+            <span>Docs</span>
+            <span>Developer</span>
+          </div>
         </div>
       </footer>
     </div>

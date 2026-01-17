@@ -1,14 +1,14 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { signup } from "../api/admin.api"
-
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
   })
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
@@ -17,8 +17,11 @@ export default function Signup() {
     e.preventDefault()
     try {
       await signup(form)
+     // localStorage.setItem("accessToken", res.data.accessToken)
+
+    navigate("/projects")
       alert("Signup successful")
-      
+
     } catch (err) {
       alert(err.response?.data?.message || "Signup failed")
     }
