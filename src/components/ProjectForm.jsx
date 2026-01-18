@@ -1,6 +1,6 @@
 export default function ProjectForm() {
   return (
-    <div className="w-1/2 px-14 py-12 bg-gradient-to-br from-[#0e121a] to-[#090c13]">
+    <div className="w-1/2 px-14 py-12 bg-linear-to-br from-[#0e121a] to-[#090c13]">
       <h2 className="text-2xl font-semibold mb-8">Project Details</h2>
 
       {/* Project Name */}
@@ -48,7 +48,7 @@ export default function ProjectForm() {
         />
       </div>
 
-      <button className="bg-gradient-to-r from-cyan-400 to-blue-500 px-6 py-3 rounded-lg font-medium text-black hover:opacity-90 transition">
+      <button className="bg-linear-to-r from-cyan-400 to-blue-500 px-6 py-3 rounded-lg font-medium text-black hover:opacity-90 transition">
         Create new project
       </button>
     </div>

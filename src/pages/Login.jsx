@@ -13,19 +13,35 @@ const Login = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const res = await login(form); // store response
-    localStorage.setItem("accessToken", res.data.accessToken); // save token
+    const res = await login(form); 
+
+    // Check what the response looks like
+    console.log("Login response:", res.data);
+
+    // Adjust this based on backend response shape
+    const accessToken = res.data.accessToken || res.data.data?.accessToken;
+    const refreshToken = res.data.refreshToken || res.data.data?.refreshToken;
+
+    if (!accessToken) {
+      throw new Error("No access token returned from server");
+    }
+
+    // Save tokens to localStorage
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
 
     alert("Login successful");
-    navigate("/projects"); // redirect after success
+    navigate("/projects");
 
     console.log("Logged in user:", form.email);
   } catch (err) {
+    console.error(err);
     alert(
-      err.response?.data?.message || err.response?.data?.error || "Login failed"
+      err.response?.data?.message || err.response?.data?.error || err.message || "Login failed"
     );
   }
 };
+
 
   return (
      <div className="min-h-screen bg-gray-950 flex items-center justify-center px-6">

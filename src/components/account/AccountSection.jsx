@@ -12,7 +12,7 @@ export default function AccountSection({
         <p className="text-gray-400 mt-2">{description}</p>
       </div>
 
-      <div className="w-[420px]">
+      <div className="w-105">
         <label className="block mb-2">{title}</label>
         <input
           type={type}
