@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { login } from "../api/admin.api"
-import { useNavigate } from "react-router-dom"
+import { useNavigate ,Link} from "react-router-dom"
 const Login = () => {
   const navigate = useNavigate();
       const [form, setForm] = useState({
@@ -72,10 +72,20 @@ const handleSubmit = async (e) => {
 
         <button
           type="submit"
-          className="w-full bg-linear-to-r from-cyan-400 to-blue-500 py-3 rounded text-black font-medium"
+          className="w-full bg-linear-to-r from-cyan-400 to-blue-500 py-3 rounded text-black font-medium cursor-pointer"
         >
           Login
         </button>
+       
+  <p className="mt-6 text-center text-gray-400">
+    Do not have an account?{" "}
+    <Link
+      to="/signup"
+      className="text-white font-semibold hover:underline"
+    >
+      Sign up
+    </Link>
+  </p>
       </form>
     </div>
   )

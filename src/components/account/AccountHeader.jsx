@@ -8,7 +8,7 @@ export default function AccountHeader() {
         </span>
       </div>
 
-      <button className="px-6 py-2 border border-white/30 rounded-md hover:bg-white hover:text-black transition">
+      <button className="cursor-pointer  px-6 py-2 border border-white/30 rounded-md hover:bg-white hover:text-black transition">
         LOGOUT
       </button>
     </div>

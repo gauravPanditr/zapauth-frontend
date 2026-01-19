@@ -12,8 +12,8 @@ export default function Hero() {
         <span className="italic font-medium">not</span> to set up authentication
       </p>
       <div className="flex gap-4 flex-wrap justify-center">
-        <button onClick={()=>navigator("/signup")}
-         className="bg-linear-to-rrom-blue-400 to-purple-500 text-white px-6 py-3 rounded hover:opacity-90">
+        <button  onClick={()=>navigator("/login")}
+         className="cursor-pointer bg-linear-to-rrom-blue-400 to-purple-500 text-white px-6 py-3 rounded hover:opacity-90">
           Get started
         </button>
         <button className="border border-blue-400 text-blue-400 px-6 py-3 rounded hover:bg-gray-900">

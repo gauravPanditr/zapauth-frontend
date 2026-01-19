@@ -6,4 +6,5 @@ import axios from "axios";
     "Content-Type": "application/json",
   },
 })
+
 export default api;

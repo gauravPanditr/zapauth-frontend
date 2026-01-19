@@ -62,7 +62,7 @@ export default function Signup() {
 
         <button
           type="submit"
-          className="w-full bg-linear-to-r from-cyan-400 to-blue-500 py-3 rounded text-black font-medium"
+          className="cursor-pointer w-full bg-linear-to-r from-cyan-400 to-blue-500 py-3 rounded text-black font-medium"
         >
           Sign Up
         </button>

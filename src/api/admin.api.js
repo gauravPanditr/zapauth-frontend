@@ -11,9 +11,6 @@ export const login=(data)=>{
 
 export const getAdminProfile = () => {
   const token = localStorage.getItem("accessToken");
-  
-  
-
   return api.get("/admin/me", {
     headers: {
       Authorization: `Bearer ${token}`,
