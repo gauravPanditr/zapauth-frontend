@@ -8,6 +8,7 @@ import ProtectedRoute from "./pages/ProtectedRoute"
 import Projects from "./pages/Projects"
 import CreateProject from "./pages/CreateProject"
 import Account from "./pages/Account"
+import ProjectDashboard from "./pages/ProjectDashboard"
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+         <Route path="/projects/:projectId" element={<ProjectDashboard />}></Route>
           <Route path="/account" element={<Account/>}/>
           <Route path="/create" element={<CreateProject />} />
     </Routes>
