@@ -9,20 +9,25 @@ export default function Account() {
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);     
 
-  useEffect(() => {
+ useEffect(() => {
+  const fetchProfile = async () => {
     setLoading(true);
-    getAdminProfile()
-      .then((res) => {
-        setAdmin(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching admin profile:", err);
-        setError("Failed to load account data.");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+    try {
+      const res = await getAdminProfile();   // ✅ axios response
+      console.log("PROFILE RESPONSE:", res.data); // 🔥 debug
+      setAdmin(res.data);              // ✅ FIX
+    } catch (err) {
+      console.error("Error fetching admin profile:", err);
+      setError("Failed to load account data. Please login again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProfile();
+}, []);
+
+
 
  
   if (loading) {
@@ -51,7 +56,7 @@ export default function Account() {
         <AccountSection
           title="Name"
           description="Do not change your name frequently"
-          value={admin?.username || ""}
+          value={ admin?.username|| ""}
           type="text"
           button="Update"
         />

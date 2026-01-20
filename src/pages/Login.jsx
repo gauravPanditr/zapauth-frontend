@@ -30,7 +30,7 @@ const handleSubmit = async (e) => {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
 
-    alert("Login successful");
+    
     navigate("/projects");
 
     console.log("Logged in user:", form.email);

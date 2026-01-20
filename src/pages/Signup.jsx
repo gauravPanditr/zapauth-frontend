@@ -19,8 +19,8 @@ export default function Signup() {
       await signup(form)
      // localStorage.setItem("accessToken", res.data.accessToken)
 
-    navigate("/projects")
-      alert("Signup successful")
+    navigate("/login")
+     
 
     } catch (err) {
       alert(err.response?.data?.message || "Signup failed")
