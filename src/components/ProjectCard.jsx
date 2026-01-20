@@ -8,7 +8,7 @@ export default function ProjectCard({ id, name }) {
 
   return (
     <div
-      onClick={() => navigate(`/projects/${id}`)}
+      onClick={() => navigate(`/console/projects/${id}/authentication`)}
       className="relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-cyan-400/40 transition cursor-pointer"
     >
       {/* 3-dot menu */}

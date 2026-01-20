@@ -1,10 +1,31 @@
+import { NavLink, useParams } from "react-router-dom";
+
 export default function ProjectSidebar() {
+  const { projectId } = useParams();
+
   return (
-    <aside className="w-64 border-r border-white/10 px-6 py-8">
-      <nav className="space-y-4">
-        <div className="bg-white/5 px-4 py-2 rounded-md">Authentication</div>
-        <div className="px-4 py-2">Settings</div>
-      </nav>
+    <aside className="w-64 border-r border-gray-800 p-6">
+      <h2 className="text-xl font-semibold mb-6">Authentication</h2>
+
+      <ul className="space-y-3">
+        <NavLink
+          to={`/console/projects/${projectId}/authentication`}
+          className={({ isActive }) =>
+            isActive ? "text-blue-400" : "text-gray-400"
+          }
+        >
+          Authentication
+        </NavLink>
+
+        <NavLink
+          to={`/console/projects/${projectId}/settings`}
+          className={({ isActive }) =>
+            isActive ? "text-blue-400" : "text-gray-400"
+          }
+        >
+          Settings
+        </NavLink>
+      </ul>
     </aside>
   );
 }
