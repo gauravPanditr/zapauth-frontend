@@ -5,12 +5,15 @@ import { useState } from "react";
 export default function ProjectCard({ id, name }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
+const handleClick = () => {
+    navigate(`/console/projects/${id}/authentication`, { state: { projectName: name } });
+  };
   return (
     <div
-      onClick={() => navigate(`/console/projects/${id}/authentication`)}
+      onClick={handleClick}
       className="relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-cyan-400/40 transition cursor-pointer"
     >
+        <h2 className="text-xl font-semibold">{name}</h2>
       {/* 3-dot menu */}
       <button
         onClick={(e) => {
