@@ -17,38 +17,41 @@ export const logout = () => {
 
 export const getAdminProfile = async () => {
   try {
-    // First attempt
-    const res = await api.get("/admin/me", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
+    return await api.get("/admin/me", {
       withCredentials: true,
     });
-    return res;
   } catch (error) {
     if (error.response?.status === 401) {
-      try {
-      
-        const refreshRes = await api.post("/admin/refresh", null, {
-          withCredentials: true, // send httpOnly refresh cookie
-        });
-
-      
-        const newAccessToken = refreshRes.data.accessToken;
-        localStorage.setItem("accessToken", newAccessToken);
-
-        
-        return await api.get("/admin/me", {
-          headers: { Authorization: `Bearer ${newAccessToken}` },
-          withCredentials: true,
-        });
-      } catch (refreshErr) {
-        console.error("Refresh token failed:", refreshErr);
-        throw refreshErr;
-      }
+      return await handleRefreshAndRetry();
     }
 
     throw error;
   }
 };
 
+const handleRefreshAndRetry = async () => {
+  try {
+    const refreshRes = await api.post("/admin/refresh", null, {
+      withCredentials: true,
+    });
+
+    const newAccessToken = refreshRes.data.accessToken;
+
+    if (!newAccessToken) {
+      throw new Error("No token from refresh");
+    }
+
+    localStorage.setItem("accessToken", newAccessToken);
+
+    // Retry original call
+    return await api.get("/admin/me", {
+      withCredentials: true,
+    });
+
+  } catch (err) {
+    // YAHI SE TUM LOGOUT KARO
+    localStorage.removeItem("accessToken");
+    window.location.href = "/login";
+    throw err;
+  }
+};
