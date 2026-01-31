@@ -13,9 +13,9 @@ export default function Account() {
   const fetchProfile = async () => {
     setLoading(true);
     try {
-      const res = await getAdminProfile();   // ✅ axios response
-      console.log("PROFILE RESPONSE:", res.data); // 🔥 debug
-      setAdmin(res.data);              // ✅ FIX
+      const res = await getAdminProfile();   
+      console.log("PROFILE RESPONSE:", res.data); 
+      setAdmin(res.data);             
     } catch (err) {
       console.error("Error fetching admin profile:", err);
       setError("Failed to load account data. Please login again.");
@@ -26,7 +26,7 @@ export default function Account() {
 
   fetchProfile();
 }, []);
-
+ 
 
 
  

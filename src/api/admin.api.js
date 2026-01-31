@@ -29,6 +29,13 @@ export const getAdminProfile = async () => {
   }
 };
 
+export const deleteAccount=async()=>{
+   return api.delete("admin/delete",{
+     withCredentials: true
+   });
+}
+
+
 const handleRefreshAndRetry = async () => {
   try {
     const refreshRes = await api.post("/admin/refresh", null, {
@@ -49,7 +56,7 @@ const handleRefreshAndRetry = async () => {
     });
 
   } catch (err) {
-    // YAHI SE TUM LOGOUT KARO
+   
     localStorage.removeItem("accessToken");
     window.location.href = "/login";
     throw err;
