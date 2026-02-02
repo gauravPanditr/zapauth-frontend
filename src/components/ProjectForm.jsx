@@ -20,14 +20,14 @@ export default function ProjectForm() {
 
       await createProject(payload);
 
-      alert("Project created successfully ✅");
+     
 
       setProjectName("");
       setAppName("");
       setAppEmail("");
     } catch (err) {
       console.error(err);
-      alert("Unauthorized or error ❌");
+      
     } finally {
       setLoading(false);
     }

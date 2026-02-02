@@ -22,7 +22,7 @@ export default function ProjectCard({ id, name }) {
     try {
       setLoading(true);
       await deleteProjectById(id);
-      alert("Project deleted successfully");
+     
       setVisible(false);
     } catch (err) {
       alert(err.response?.data?.message || "Failed to delete project");

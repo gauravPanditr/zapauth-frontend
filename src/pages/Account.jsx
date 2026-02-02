@@ -49,7 +49,7 @@ export default function Account() {
 
   return (
     <div className="min-h-screen bg-[#05070c] text-white overflow-y-auto scroll-smooth">
-      <AccountHeader />
+      <AccountHeader name={admin?.username} />
 
       <div className="max-w-6xl mx-auto px-10 py-14 space-y-10">
         {/* Name */}

@@ -1,4 +1,3 @@
-
 import api from "./axios";
 
 export const createProject = (data) => {
@@ -18,7 +17,7 @@ export const createProject = (data) => {
 
 
 export const getProjects = async () => {
-  // Get token from localStorage
+  
   const token = localStorage.getItem("accessToken");
 
   if (!token) {
