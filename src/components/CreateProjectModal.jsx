@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import ProjectForm from "./ProjectForm";
 import ProjectStatusPanel from "./ProjectStatusPanel";
 
 export default function CreateProjectModal() {
+  const navigate=useNavigate();
   return (
     <div className="min-h-screen flex flex-col text-white">
       {/* Header */}
@@ -9,7 +11,10 @@ export default function CreateProjectModal() {
         <h1 className="text-lg font-semibold tracking-wide">
           CREATE NEW PROJECT
         </h1>
-        <button className="text-2xl opacity-70 hover:opacity-100">×</button>
+        <button onClick={()=>{
+           navigate("/projects");
+        }}
+         className="cursor-pointer text-2xl opacity-70 hover:opacity-100">×</button>
       </div>
 
       {/* Body */}

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { createProject } from "../api/project.api";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjectForm() {
+  const navigate=useNavigate();
   const [projectName, setProjectName] = useState("");
   const [appName, setAppName] = useState("");
   const [appEmail, setAppEmail] = useState("");
@@ -11,17 +13,17 @@ export default function ProjectForm() {
     try {
       setLoading(true);
 
-     
-      const payload = {
+     const payload = {
         projectName,
         appName,
         appEmail,
+        
       };
 
       await createProject(payload);
 
-     
-
+      
+ navigate(`/console/projects/${id}/settings`)
       setProjectName("");
       setAppName("");
       setAppEmail("");

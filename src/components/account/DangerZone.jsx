@@ -22,7 +22,7 @@ export default function DangerZone() {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
 
-      alert("Account deleted successfully");
+     
 
       navigate("/login");
     } catch (err) {
