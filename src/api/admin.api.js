@@ -1,64 +1,8 @@
 import api from "./axios";
 
-
-
-export const signup = (data) => {
-  return api.post("/admin/signup", data);
-};
-
-export const login = (data) => {
-  return api.post("/admin/login", data);
-};
-
-export const logout = () => {
-  return api.post("/admin/logout");
-};
-
-
-export const getAdminProfile = async () => {
-  try {
-    return await api.get("/admin/me", {
-      withCredentials: true,
-    });
-  } catch (error) {
-    if (error.response?.status === 401) {
-      return await handleRefreshAndRetry();
-    }
-
-    throw error;
-  }
-};
-
-export const deleteAccount=async()=>{
-   return api.delete("admin/delete",{
-     withCredentials: true
-   });
-}
-
-
-const handleRefreshAndRetry = async () => {
-  try {
-    const refreshRes = await api.post("/admin/refresh", null, {
-      withCredentials: true,
-    });
-
-    const newAccessToken = refreshRes.data.accessToken;
-
-    if (!newAccessToken) {
-      throw new Error("No token from refresh");
-    }
-
-    localStorage.setItem("accessToken", newAccessToken);
-
-    // Retry original call
-    return await api.get("/admin/me", {
-      withCredentials: true,
-    });
-
-  } catch (err) {
-   
-    localStorage.removeItem("accessToken");
-    window.location.href = "/login";
-    throw err;
-  }
-};
+export const signup = (data) => api.post("/admin/signup", data);
+export const login = (data) => api.post("/admin/login", data);
+export const logout = () => api.post("/admin/logout");
+export const getAdminProfile = () => api.get("/admin/me");
+export const deleteAccount = () => api.delete("/admin/delete");
+export const updateAccount=()=>api.patch('/admin/update');

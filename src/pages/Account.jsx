@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AccountHeader from "../components/account/AccountHeader";
 import AccountSection from "../components/account/AccountSection";
 import DangerZone from "../components/account/DangerZone";
-import { getAdminProfile } from "../api/admin.api";
+import { getAdminProfile,updateAccount } from "../api/admin.api";
 
 export default function Account() {
   const [admin, setAdmin] = useState(null);
@@ -27,7 +27,14 @@ export default function Account() {
   fetchProfile();
 }, []);
  
-
+const handleUpdate = async (field, value) => {
+  try {
+    await updateAccount({ [field]: value });
+    setAdmin((prev) => ({ ...prev, [field]: value })); 
+  } catch (err) {
+    console.error("Update failed:", err);
+  }
+};
 
  
   if (loading) {
@@ -53,31 +60,35 @@ export default function Account() {
 
       <div className="max-w-6xl mx-auto px-10 py-14 space-y-10">
         {/* Name */}
-        <AccountSection
-          title="Name"
-          description="Do not change your name frequently"
-          value={ admin?.username|| ""}
-          type="text"
-          button="Update"
-        />
+    <AccountSection
+  title="Name"
+  description="Do not change your name frequently"
+  value={admin?.username || ""}
+  field="username"
+  type="text"
+  button="Update"
+  onUpdate={handleUpdate}
+/>
 
-        {/* Email */}
-        <AccountSection
-          title="Email"
-          description="Do not change your email frequently"
-          value={admin?.email || ""}
-          type="email"
-          button="Update"
-        />
+<AccountSection
+  title="Email"
+  description="Do not change your email frequently"
+  value={admin?.email || ""}
+  field="email"
+  type="email"
+  button="Update"
+  onUpdate={handleUpdate}
+/>
 
-        {/* Password */}
-        <AccountSection
-          title="Password"
-          description="Change your password frequently to keep your account secure"
-          value="************"
-          type="password"
-          button="Update"
-        />
+<AccountSection
+  title="Password"
+  description="Change your password frequently to keep your account secure"
+  value=""
+  field="password"
+  type="password"
+  button="Update"
+  onUpdate={handleUpdate}
+/>
 
         <DangerZone />
       </div>
