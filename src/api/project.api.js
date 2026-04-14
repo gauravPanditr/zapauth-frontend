@@ -39,3 +39,12 @@ export const deleteProjectById = (projectId) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const deleteAllProject=()=>{
+  const token = localStorage.getItem("accessToken");
+  if (!token) throw new Error("No access token found. Please login.");
+
+  return api.delete(`/project/delete/all${projectId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}

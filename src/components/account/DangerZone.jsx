@@ -1,10 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../../api/admin.api";
+import { deleteAllProject } from "../../api/project.api";
 
 export default function DangerZone() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+ const handleProjectDelete = async () => {
+  try {
+    const res = await deleteAllProject();
+    return res;
+   
+
+  } catch (error) {
+    console.error("Delete failed:", error);
+
+    alert(
+      error?.response?.data?.message || "Failed to delete projects ❌"
+    );
+  }
+};
 
   const handleDeleteAccount = async () => {
     const ok = window.confirm(
@@ -51,7 +67,10 @@ export default function DangerZone() {
           </p>
         </div>
 
-        <button className="px-6 py-2 border border-red-600 text-red-500 rounded-md hover:bg-red-600 hover:text-white transition">
+        <button
+        onClick={handleProjectDelete}
+      
+         className="px-6 py-2 border border-red-600 text-red-500 rounded-md hover:bg-red-600 hover:text-white transition">
           DELETE ALL PROJECTS
         </button>
       </div>
