@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Features from '../components/Feature';
+import FreeToUse from '../components/freetoUse';
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <div className="pt-20">
         <Hero />
         <Features />
+        <FreeToUse/>
       </div>
     </div>
   )
