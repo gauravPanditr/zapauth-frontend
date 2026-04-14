@@ -30,6 +30,8 @@ export default function Account() {
 const handleUpdate = async (field, value) => {
   try {
     await updateAccount({ [field]: value });
+    console.log(value);
+    
     setAdmin((prev) => ({ ...prev, [field]: value })); 
   } catch (err) {
     console.error("Update failed:", err);
