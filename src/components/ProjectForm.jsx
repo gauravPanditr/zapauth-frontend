@@ -23,7 +23,7 @@ export default function ProjectForm() {
       await createProject(payload);
 
       
- navigate(`/console/projects/${id}/settings`)
+ navigate(`/projects`)
       setProjectName("");
       setAppName("");
       setAppEmail("");
