@@ -48,3 +48,24 @@ export const deleteAllProject=()=>{
     headers: { Authorization: `Bearer ${token}` },
   });
 }
+
+export const getProjectById = (projectId) => {
+  const token = localStorage.getItem("accessToken");
+
+  return api.get(`/project/${projectId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const updateProject = (data) => {
+  const token = localStorage.getItem("accessToken");
+  if (!token) throw new Error("No access token found. Please login.");
+
+  return api.patch("/project/update", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
