@@ -18,7 +18,7 @@ export default function CreateProjectModal() {
         </div>
         <button
           onClick={() => navigate("/projects")}
-          className="w-8 h-8 flex items-center justify-center rounded-lg text-[#4a5a80] hover:text-slate-200 hover:bg-white/[0.06] transition-all duration-150"
+          className="w-8 h-8 flex items-center justify-center rounded-lg text-[#4a5a80] hover:text-slate-200 hover:bg-white/6 transition-all duration-150"
         >
           <svg className="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
             <line x1="18" y1="6" x2="6" y2="18" />

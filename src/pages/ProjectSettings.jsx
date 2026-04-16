@@ -48,7 +48,7 @@ function CopyInput({ value }) {
 // ─── TOGGLE ──────────────────────────────────────────────────────────────────
 function Toggle({ label, description, enabled, onChange }) {
   return (
-    <div className="flex items-center justify-between py-4 px-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all group">
+    <div className="flex items-center justify-between py-4 px-5 rounded-xl bg-white/2er border-white/5 hover:border-white/10 transition-all group">
       <div>
         <p className="text-sm font-medium text-white/80">{label}</p>
         {description && <p className="text-xs text-white/30 mt-0.5">{description}</p>}
@@ -72,7 +72,7 @@ function Toggle({ label, description, enabled, onChange }) {
 // ─── SECTION WRAPPER ─────────────────────────────────────────────────────────
 function Section({ children, className = "" }) {
   return (
-    <div className={`rounded-2xl border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm p-7 ${className}`}>
+    <div className={`rounded-2xl border border-white/[0.07] bg-white/3 backdrop-blur-sm p-7 ${className}`}>
       {children}
     </div>
   );
@@ -175,29 +175,31 @@ export default function ProjectSettings() {
   };
 
   // ── Fetch project on mount ──────────────────────────────────────────────
-  useEffect(() => {
-    const fetchProject = async () => {
-      try {
-        setLoading(true);
-        const res = await getProjectById(projectId);
-        const data = res.data;
-          console.log("Project Response:", res.data);
-        const projectData = res.data.data;
-        setProjectName(data.projectName || "");
-        setAppName(data.appName || "");
-        setAppEmail(data.appEmail || "");
-        setProjectKey(data.projectKey || "");
-        setEmailPassword(data.loginMethods?.emailPassword ?? true);
-        setOtpEmail(data.loginMethods?.otpEmail ?? false);
-        setMagicUrl(data.loginMethods?.magicUrl ?? false);
-      } catch (err) {
-        showToast(err.message || "Failed to load project.", "error");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProject();
-  }, [projectId]);
+useEffect(() => {
+  const fetchProject = async () => {
+    try {
+      setLoading(true);
+      const res = await getProjectById(projectId);
+
+      console.log("FULL RESPONSE:", res.data);
+
+      const projectData = res.data.data || res.data;
+
+      setProjectName(projectData.projectName || "");
+      setAppName(projectData.appName || "");
+      setAppEmail(projectData.appEmail || "");
+      setProjectKey(projectData.projectKey || "");
+
+    } catch (err) {
+      console.log(err);
+      showToast("Failed to load project.", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProject();
+}, [projectId]);
 
   // ── Update project details ──────────────────────────────────────────────
   const handleUpdate = async () => {
@@ -240,7 +242,7 @@ export default function ProjectSettings() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-8 bg-white/[0.03] border border-white/[0.06] rounded-xl p-1 w-fit">
+        <div className="flex gap-1 mb-8 bg-white/3 border border-white/6 rounded-xl p-1 w-fit">
           {TABS.map((tab) => (
             <button
               key={tab}
@@ -397,7 +399,7 @@ export default function ProjectSettings() {
             </Section>
 
             {/* ── Danger Zone ── */}
-            <div className="rounded-2xl border border-red-500/20 bg-red-500/[0.03] p-7">
+            <div className="rounded-2xl border border-red-500/20 bg-red-500/3 p-7">
               <div className="flex items-start gap-3 mb-4">
                 <svg className="w-5 h-5 text-red-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
