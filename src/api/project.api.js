@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 import api from "./axios";
 
 export const createProject = (data) => {
@@ -58,6 +59,18 @@ export const getProjectById = (projectId) => {
     },
   });
 };
+export const RegenerateNewKey=(projectId,projectKey)=>{
+   const token=localStorage.getItem("accessToken");
+    if (!token) throw new Error("No access token found. Please login.");
+    return api.put("/project/generate-new-key",data,{
+      headers: {
+      Authorization: `Bearer ${token}`,
+      "project-id": projectId,
+      "project-key": projectKey,
+    },
+    });
+}
+
 export const updateProject = (data, projectId, projectKey) => {
   const token = localStorage.getItem("accessToken");
   if (!token) throw new Error("No access token found. Please login.");

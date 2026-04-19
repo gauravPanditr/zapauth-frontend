@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ProjectSidebar from "../components/ProjectSidebar";
 
-import { getProjectById, updateProject } from "../api/project.api"; 
+import { getProjectById, updateProject,RegenerateNewKey } from "../api/project.api"; 
 
 
 // ─── COPY INPUT ──────────────────────────────────────────────────────────────
@@ -163,7 +163,7 @@ export default function ProjectSettings() {
   const [emailPassword, setEmailPassword] = useState(true);
   const [otpEmail, setOtpEmail] = useState(false);
   const [magicUrl, setMagicUrl] = useState(false);
-
+const [regenLoading, setRegenLoading] = useState(false);
   // Toast
   const [toast, setToast] = useState({ visible: false, message: "", type: "success" });
 
@@ -205,20 +205,35 @@ const handleUpdate = async () => {
     setUpdateLoading(true);
     await updateProject(
       {
-        id: projectId,
-        projectName,
-        appName,
-        appEmail,
-        loginMethods: { emailPassword, otpEmail, magicUrl },
-      },
-      projectId,   // from useParams() — already available
-      projectKey   // from useState — already set when project loads
-    );
+    id: projectId,
+    projectName,
+    appName,
+    appEmail,
+    emailPassword,   
+    otpEmail,
+    magicUrl,
+  },
+  projectId,
+  projectKey
+);
     showToast("Project updated successfully!", "success");
   } catch (err) {
     showToast(err.message || "Update failed.", "error");
   } finally {
     setUpdateLoading(false);
+  }
+};
+const handleRegenerateKey = async () => {
+  try {
+    setRegenLoading(true);
+    const res = await RegenerateNewKey(projectId, projectKey);
+    const newKey = res.data.data.projectKey;
+    setProjectKey(newKey); 
+    showToast("Project key regenerated successfully!", "success");
+  } catch (err) {
+    showToast(err.message || "Failed to regenerate key.", "error");
+  } finally {
+    setRegenLoading(false);
   }
 };
 
@@ -278,46 +293,66 @@ const handleUpdate = async () => {
           <div className="flex flex-col gap-5">
 
             {/* ── Project Credentials ── */}
-            <Section>
-              <div className="flex items-start justify-between mb-5">
-                <div>
-                  <h2 className="text-base font-semibold text-white/90">Project Credentials</h2>
-                  <p className="text-xs text-white/35 mt-1">Used by all authentication services in this project</p>
-                </div>
-                <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                  </svg>
-                </div>
-              </div>
+          <Section>
+  <div className="flex items-start justify-between mb-5">
+    <div>
+      <h2 className="text-base font-semibold text-white/90">Project Credentials</h2>
+      <p className="text-xs text-white/35 mt-1">Used by all authentication services in this project</p>
+    </div>
+    <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
+      <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+      </svg>
+    </div>
+  </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-white/40 uppercase tracking-widest">Project ID</label>
-                  <CopyInput value={projectId} />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-white/40 uppercase tracking-widest">Project Key</label>
-                  <CopyInput value={projectKey} />
-                </div>
-              </div>
+  <div className="grid md:grid-cols-2 gap-4">
+    <div className="flex flex-col gap-1.5">
+      <label className="text-xs font-semibold text-white/40 uppercase tracking-widest">Project ID</label>
+      <CopyInput value={projectId} />
+    </div>
+    <div className="flex flex-col gap-1.5">
+      <label className="text-xs font-semibold text-white/40 uppercase tracking-widest">Project Key</label>
+      <CopyInput value={projectKey} />
+    </div>
+  </div>
 
-              <div className="mt-5 flex items-start gap-3 px-4 py-3.5 bg-amber-500/5 border border-amber-500/20 rounded-xl">
-                <svg className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-                </svg>
-                <p className="text-xs text-amber-300/80 leading-relaxed">
-                  If you suspect your project is compromised, regenerate the project key immediately to revoke all existing sessions.
-                </p>
-              </div>
+  <div className="mt-5 flex items-start gap-3 px-4 py-3.5 bg-amber-500/5 border border-amber-500/20 rounded-xl">
+    <svg className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+    </svg>
+    <p className="text-xs text-amber-300/80 leading-relaxed">
+      If you suspect your project is compromised, regenerate the project key immediately to revoke all existing sessions.
+    </p>
+  </div>
 
-              <button className="mt-4 px-5 py-2.5 rounded-xl text-sm font-medium border border-white/10 text-white/50 hover:border-white/20 hover:text-white/80 transition-all duration-200 flex items-center gap-2">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Regenerate Project Key
-              </button>
-            </Section>
+  {/* ✅ Replaced */}
+  <button
+    onClick={handleRegenerateKey}
+    disabled={regenLoading}
+    className="mt-4 px-5 py-2.5 rounded-xl text-sm font-medium border border-white/10 text-white/50
+      hover:border-white/20 hover:text-white/80 disabled:opacity-40 disabled:cursor-not-allowed
+      transition-all duration-200 flex items-center gap-2"
+  >
+    {regenLoading ? (
+      <>
+        <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+        </svg>
+        Regenerating...
+      </>
+    ) : (
+      <>
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Regenerate Project Key
+      </>
+    )}
+  </button>
+</Section>
 
             {/* ── Details ── */}
             <Section>
