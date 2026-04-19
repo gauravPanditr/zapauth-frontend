@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export default function AccountSection({ title, description, value, type, button, field, onUpdate }) {
   const [inputValue, setInputValue] = useState(value);
 
-  useEffect(() => { setInputValue(value); }, [value]);  // KEY FIX
+  useEffect(() => { setInputValue(value); }, [value]);  
 
   const handleBlur = () => {
     if (!inputValue?.trim()) setInputValue(value);

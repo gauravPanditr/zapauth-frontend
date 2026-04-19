@@ -14,10 +14,8 @@ function CopyInput({ value }) {
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   };
-  
 
   return (
-    
     <div className="relative group">
       <input
         value={value || ""}
@@ -48,7 +46,7 @@ function CopyInput({ value }) {
 // ─── TOGGLE ──────────────────────────────────────────────────────────────────
 function Toggle({ label, description, enabled, onChange }) {
   return (
-    <div className="flex items-center justify-between py-4 px-5 rounded-xl bg-white/2er border-white/5 hover:border-white/10 transition-all group">
+    <div className="flex items-center justify-between py-4 px-5 rounded-xl bg-white/2 border border-white/5 hover:border-white/10 transition-all group">
       <div>
         <p className="text-sm font-medium text-white/80">{label}</p>
         {description && <p className="text-xs text-white/30 mt-0.5">{description}</p>}
@@ -175,51 +173,54 @@ export default function ProjectSettings() {
   };
 
   // ── Fetch project on mount ──────────────────────────────────────────────
-useEffect(() => {
-  const fetchProject = async () => {
-    try {
-      setLoading(true);
-      const res = await getProjectById(projectId);
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        setLoading(true);
+        const res = await getProjectById(projectId);
 
-      console.log("FULL RESPONSE:", res.data);
+        console.log("FULL RESPONSE:", res.data);
 
-      const projectData = res.data.data || res.data;
+        const projectData = res.data.data || res.data;
 
-      setProjectName(projectData.projectName || "");
-      setAppName(projectData.appName || "");
-      setAppEmail(projectData.appEmail || "");
-      setProjectKey(projectData.projectKey || "");
+        setProjectName(projectData.projectName || "");
+        setAppName(projectData.appName || "");
+        setAppEmail(projectData.appEmail || "");
+        setProjectKey(projectData.projectKey || "");
 
-    } catch (err) {
-      console.log(err);
-      showToast("Failed to load project.", "error");
-    } finally {
-      setLoading(false);
-    }
-  };
+      } catch (err) {
+        console.log(err);
+        showToast("Failed to load project.", "error");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchProject();
-}, [projectId]);
+    fetchProject();
+  }, [projectId]);
 
   // ── Update project details ──────────────────────────────────────────────
-  const handleUpdate = async () => {
-    try {
-      setUpdateLoading(true);
-      await updateProject({
-
-       id: projectId,
+const handleUpdate = async () => {
+  try {
+    setUpdateLoading(true);
+    await updateProject(
+      {
+        id: projectId,
         projectName,
         appName,
         appEmail,
         loginMethods: { emailPassword, otpEmail, magicUrl },
-      });
-      showToast("Project updated successfully!", "success");
-    } catch (err) {
-      showToast(err.message || "Update failed.", "error");
-    } finally {
-      setUpdateLoading(false);
-    }
-  };
+      },
+      projectId,   // from useParams() — already available
+      projectKey   // from useState — already set when project loads
+    );
+    showToast("Project updated successfully!", "success");
+  } catch (err) {
+    showToast(err.message || "Update failed.", "error");
+  } finally {
+    setUpdateLoading(false);
+  }
+};
 
   return (
     <div className="flex min-h-screen bg-[#080808] text-white font-sans">

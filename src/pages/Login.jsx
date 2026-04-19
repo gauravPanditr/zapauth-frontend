@@ -24,7 +24,7 @@ const Login = () => {
       localStorage.setItem("refreshToken", refreshToken)
       navigate("/projects")
     } catch (err) {
-      console.error(err)
+      
       alert(err.response?.data?.message || err.response?.data?.error || err.message || "Login failed")
     } finally {
       setLoading(false)

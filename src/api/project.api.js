@@ -58,14 +58,16 @@ export const getProjectById = (projectId) => {
     },
   });
 };
-
-export const updateProject = (data) => {
+export const updateProject = (data, projectId, projectKey) => {
   const token = localStorage.getItem("accessToken");
   if (!token) throw new Error("No access token found. Please login.");
+  if (!projectId || !projectKey) throw new Error("Project credentials missing.");
 
   return api.patch("/project/update", data, {
     headers: {
       Authorization: `Bearer ${token}`,
+      "project-id": projectId,
+      "project-key": projectKey,
     },
   });
 };

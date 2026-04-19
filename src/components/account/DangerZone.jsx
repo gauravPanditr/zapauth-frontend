@@ -12,7 +12,6 @@ export default function DangerZone() {
     const res = await deleteAllProject();
     return res;
    
-
   } catch (error) {
     console.error("Delete failed:", error);
 

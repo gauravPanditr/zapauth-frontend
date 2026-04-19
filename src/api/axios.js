@@ -27,7 +27,7 @@ api.interceptors.response.use(
       !error.config.url.includes("/admin/login")
     ) {
       localStorage.removeItem("accessToken");
-      window.location.href = "/login";
+     // window.location.href = "/login";
     }
     return Promise.reject(error);
   }
