@@ -104,7 +104,7 @@ const Login = () => {
             className="text-white font-bold text-[17px] tracking-tight"
             style={{ fontFamily: "'Space Mono', monospace" }}
           >
-            Zap<span style={{ color: "#00d4b4" }}>Auth</span>
+            Auth<span style={{ color: "#00d4b4" }}>Wave</span>
           </span>
         </div>
 

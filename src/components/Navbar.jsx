@@ -6,7 +6,7 @@ export default function Navbar() {
 
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-gray-950 text-white">
-      <div className="font-bold text-xl">Zap Auth</div>
+      <div className="font-bold text-xl">AuthWave</div>
       <div className="flex gap-6">
         <Link to="/" className="hover:text-blue-400">Features</Link>
         <Link to="/" className="hover:text-blue-400">Security</Link>
